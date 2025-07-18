@@ -1,6 +1,4 @@
 import heapq
-from collections import deque
-
 
 t = int(input())
 for _ in range(t):
@@ -14,9 +12,10 @@ for _ in range(t):
         else:
             a.append((l, r, real))
 
-    casino = deque(sorted(a))
+    casino = sorted(a)
 
     ans = k
+    search_start_index = 0
 
     while True:
         if len(heap) == 0:
@@ -32,11 +31,13 @@ for _ in range(t):
         heap = []
 
         cnt = len(casino)
-        for i in range(cnt):
-            c = casino.popleft()
+        for i in range(search_start_index, cnt):
+            c = casino[i]
             if (c[0] <= ans) and (ans <= c[1]):
                 heapq.heappush(heap, (-c[2], c[0], c[1]))
-            else:
-                casino.append(c)
+            elif (c[0] > ans):
+                break
+
+            search_start_index += 1
     
     print(ans)
