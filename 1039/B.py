@@ -1,10 +1,10 @@
 
 from collections import deque
 
-def checkBad(a, new):
-    if a[0] > a[1] and a[1] > a[2] and a[2] > a[3] and a[3] > new:
+def checkBad(a):
+    if a[0] > a[1] and a[1] > a[2] and a[2] > a[3] and a[3] > a[4]:
         return True
-    elif a[0] < a[1] and a[1] < a[2] and a[2] < a[3] and a[3] < new:
+    elif a[0] < a[1] and a[1] < a[2] and a[2] < a[3] and a[3] < a[4]:
         return True
     
     return False
@@ -32,7 +32,7 @@ def solve(dq, ans, n, last_selected):
                continue
             elif last_selected < cand[0] and cand[0] < cand[1] and cand[1] < cand[2] and cand[2] < cand[3]:
                continue
-            elif len(last_popped) == 4 and True == checkBad(list(last_popped), cand[0]):
+            elif True == checkBad(list(last_popped) + cand):
                 continue
             else:
                 if j & 1 == 0:
@@ -82,4 +82,5 @@ for i in range(t):
         dq = deque(p)
         ans = ['R']
         last_selected = dq.pop()
-        solve(dq, ans, n, last_selected)
+        if False == solve(dq, ans, n, last_selected):
+            exit(1)
