@@ -27,4 +27,3 @@ for _ in range(t):
             b_pos.append(i)
     
     print(min(calc(a_pos), calc(b_pos)))
-    
